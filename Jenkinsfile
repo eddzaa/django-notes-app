@@ -16,7 +16,7 @@ pipeline {
         stage("Test") {
             steps {
                 echo "running basic tests"
-                sh "docker-compose exec web python manage.py test"
+                sh "docker run --rm notes-app python manage.py test"
             }
         }
         stage("Push to Docker Hub") {
