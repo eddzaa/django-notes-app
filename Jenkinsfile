@@ -29,5 +29,11 @@ pipeline {
                 sh "docker-compose down && docker-compose up -d"
             }
         }
+        stage("Test") {
+            steps {
+                echo "running basic tests"
+                sh "docker-compose exec web python manage.py test"
+            }
+        }
     }
 }
