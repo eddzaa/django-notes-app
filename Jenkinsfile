@@ -13,6 +13,12 @@ pipeline {
                 sh "docker build -t notes-app ."
             }
         }
+        stage("Test") {
+            steps {
+                echo "running basic tests"
+                sh "docker-compose exec web python manage.py test"
+            }
+        }
         stage("Push to Docker Hub") {
             steps {
                 echo "push the image to dockerhub"
@@ -27,12 +33,6 @@ pipeline {
             steps {
                 echo "deploy the container"
                 sh "docker-compose down && docker-compose up -d"
-            }
-        }
-        stage("Test") {
-            steps {
-                echo "running basic tests"
-                sh "docker-compose exec web python manage.py test"
             }
         }
     }
